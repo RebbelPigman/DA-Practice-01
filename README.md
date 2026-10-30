@@ -48,6 +48,18 @@ Public practice file, 1,338 people. Not an insurer project and not client work.
 - **Duplicates:** 1 exact duplicate row (all 7 columns identical, charges to the cent — likely double entry). Plan: drop on Day 5, 1,338 → 1,337 rows, because it would shift means slightly and could leak across a train/test split.
 - Reruns top to bottom on a cold kernel.
 
+### Day 5 — P2 clean (done)
+
+- Dropped the 1 exact duplicate row with `drop_duplicates()` and `reset_index(drop=True)`.
+- **Shape:** 1,338 → 1,337 rows × 7 columns; duplicates now 0.
+- Reason: a double-counted person would shift means slightly and could leak across a train/test split.
+
+### Day 6 — P2 first EDA plots (done)
+
+- **Histogram of charges:** right-skewed (long tail of high charges up to ≈ $63,770); mean ≈ $13,279 > median ≈ $9,386, so the median is the fairer "typical" charge.
+- **Boxplot charges by smoker:** about 3/4 of non-smokers pay less than the cheapest smokers, so smoking is the strongest single driver.
+- **Scatter bmi vs charges (coloured by smoker):** BMI barely moves non-smoker charges, but smokers with BMI over ~30 jump much higher, which is an interaction effect between smoking and BMI.
+
 ## Findings
 
 - **Smoking** shows the largest gap: smokers average about $32,050 vs about $8,434 for non-smokers.
