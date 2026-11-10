@@ -16,7 +16,6 @@ What is associated with higher insurance charges, and how sure are we?
 
 - **Excel:** open `excel/insurance_day_3.xlsx` and read `reports/p1_one_pager.md`.
 - **Python:** `pip install -r requirements.txt`, then open `notebooks/02_clean_eda.ipynb` in Jupyter and run Kernel → Restart & Run All. The notebook reads `data/raw/insurance.csv` into a working copy; the raw file is never overwritten, and the cleaned data exists only in the notebook's memory (no clean file is written).
-- Note: `requirements.txt` must be committed together with this README, otherwise a fresh clone has no pin file.
 
 ## Findings
 
@@ -87,4 +86,4 @@ requirements.txt                pinned Python packages
 ### Day 7 — What the chart is saying (done)
 
 - Supervisor note in `notebooks/02_clean_eda.ipynb` (Day 7 markdown): right-skew (mean ≈ $13,279 vs median ≈ $9,386); smoker min ≈ $12,829 sits above non-smoker Q3 ≈ $11,363; smoker × BMI ≥ 30 mean ≈ $41,558 vs non-smoker ≈ $8,441.
-- Pinned env: `requirements.txt` (pandas 3.0.4, numpy 2.5.2, matplotlib 3.11.1, jupyterlab 4.6.3; seaborn 0.13.2 is installed but not used for any chart).
+- Pinned env: `requirements.txt` (pandas 3.0.4, numpy 2.5.2, matplotlib 3.11.1, jupyterlab 4.6.3). Seaborn is not used for any chart, so it is not pinned.
