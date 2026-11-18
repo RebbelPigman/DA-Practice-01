@@ -22,6 +22,7 @@ What is associated with higher insurance charges, and how sure are we?
 - **Rows:** 1,338 raw → 1,337 after dropping 1 exact duplicate row (no missing values).
 - **Smoking:** smokers average about $32,050 vs about $8,441 for non-smokers (notebook, 1,337 rows); the cheapest smoker (≈ $12,829) pays more than three-quarters of non-smokers (Q3 ≈ $11,363).
 - **Skew:** charges are right-skewed — mean ≈ $13,279 vs median ≈ $9,386, so the median is the fairer "typical" charge.
+- **Correlation (Pearson r with charges):** age 0.30, bmi 0.20, children 0.07, all weak and positive. Age vs charges splits into three parallel bands, with smokers on top and non-smokers on the bottom, so smoking matters far more than age, bmi or children.
 - **Observational, not causal:** these are associations in a practice cross-section, not proof that smoking or BMI causes higher charges.
 
 ## File map
@@ -30,7 +31,7 @@ What is associated with higher insurance charges, and how sure are we?
 data/raw/insurance.csv          raw data (do not edit)
 excel/insurance_day_3.xlsx      Excel workbook: Insured / Summary / Charts / Notes
 excel/insurance_day_2.xlsx      earlier Excel version
-notebooks/02_clean_eda.ipynb    Python load, clean (drop duplicate) and EDA plots (matplotlib)
+notebooks/02_clean_eda.ipynb    Python load, clean (drop duplicate), EDA plots, summary table and correlation (matplotlib + seaborn)
 reports/p1_one_pager.md         Excel one-page write-up
 requirements.txt                pinned Python packages
 ```
@@ -86,4 +87,18 @@ requirements.txt                pinned Python packages
 ### Day 7 — What the chart is saying (done)
 
 - Supervisor note in `notebooks/02_clean_eda.ipynb` (Day 7 markdown): right-skew (mean ≈ $13,279 vs median ≈ $9,386); smoker min ≈ $12,829 sits above non-smoker Q3 ≈ $11,363; smoker × BMI ≥ 30 mean ≈ $41,558 vs non-smoker ≈ $8,441.
-- Pinned env: `requirements.txt` (pandas 3.0.4, numpy 2.5.2, matplotlib 3.11.1, jupyterlab 4.6.3). Seaborn is not used for any chart, so it is not pinned.
+- Pinned env: `requirements.txt` (pandas 3.0.4, numpy 2.5.2, matplotlib 3.11.1, jupyterlab 4.6.3). Seaborn 0.13.2 was added to `requirements.txt` on Day 9 for the correlation scatter plots.
+
+### Day 8 — Summary table (done)
+
+- `describe()` table for charges, bmi and age with an added IQR column (1,337 rows).
+- **Charges:** mean ≈ $13,279, median ≈ $9,386, IQR ≈ $11,911, max ≈ $63,770.
+- **BMI:** roughly symmetric around 30 (mean 30.66 ≈ median 30.40, IQR 8.41), so about half the people are above the obesity cutoff.
+- **Age:** also roughly symmetric (mean 39.22 ≈ median 39.00, range 18–64, IQR 24).
+
+### Day 9 — Correlation (done, seaborn)
+
+- Pearson r matrix for age, bmi, children and charges: age vs charges 0.30, bmi vs charges 0.20, children vs charges 0.07, bmi vs age 0.11.
+- **Scatter age vs charges by smoker:** three parallel bands with the same slope. The bottom band is non-smokers, the top band is smokers and the middle band is mixed, so age adds cost at a similar rate in every group while smoking shifts whole groups up.
+- **Scatter bmi vs charges by smoker (line at bmi 30):** heavier people pay slightly more, and for smokers the charge difference gets larger once bmi goes above 30.
+- **Takeaway:** the weak overall r values hide the smoker split; smoking matters much more than age, bmi or children.
